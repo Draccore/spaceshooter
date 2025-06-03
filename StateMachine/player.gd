@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
+@onready var main = get_tree().get_root().get_node("Main")
+
 ## Variables for stats
 const FRICTION : float = 5
 const ACCEL : float = 5
 var MAX_SPEED : float = 600
 
 var input = Vector2.ZERO
+var direction
 
 ## Variables for code
 var current_state
@@ -24,8 +27,9 @@ func change_state(new_state_name: String):
 
 func _physics_process(delta: float) -> void:
 	## Rotate player to face mouse and set direction to mouse
-	rotate(get_angle_to(get_global_mouse_position()))
 	var direction = (get_angle_to(get_global_mouse_position()))
+	rotate(direction)
+	
 	
 		## Get Input
 	var input = Vector2(

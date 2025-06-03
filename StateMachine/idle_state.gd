@@ -3,6 +3,7 @@ extends PlayerState
 func enter_state(player_node):
 	super(player_node) # Correct way to call the parent class method
 	print("IDLE")
+	print(player.direction)
 
 func exit_state():
 	pass

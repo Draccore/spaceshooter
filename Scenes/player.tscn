@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2hygqwu6wndq"]
+[gd_scene load_steps=9 format=3 uid="uid://d2hygqwu6wndq"]
 
 [ext_resource type="Script" uid="uid://cnda0noj7ed85" path="res://StateMachine/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dnthg1fv83ybo" path="res://Sprites/PlayerShipBlue.png" id="2_3smsa"]
@@ -7,6 +7,10 @@
 [ext_resource type="Script" uid="uid://brrpxxsfjk3u3" path="res://StateMachine/dashing_state.gd" id="4_8erm5"]
 [ext_resource type="Script" uid="uid://dlldd2xthj5ij" path="res://StateMachine/attacking_state.gd" id="5_f1ek2"]
 [ext_resource type="Script" uid="uid://ipsirgn5x0f8" path="res://Scripts/label.gd" id="7_3smsa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3smsa"]
+radius = 6.0
+height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
@@ -17,6 +21,8 @@ rotation = 1.5708
 texture = ExtResource("2_3smsa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_3smsa")
 
 [node name="Idle_State" type="Node" parent="."]
 script = ExtResource("2_x3wgy")

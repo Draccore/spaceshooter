@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxorfkqnwj5vf"
-path="res://.godot/imported/Laser.png-9f8cfe7f4878c3e124a7611593350731.ctex"
+uid="uid://1a5yrsujfto8"
+path="res://.godot/imported/Main Ship - Engines - Big Pulse Engine - Idle.png-178bc10cfb6392467e0eae48901635d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Laser.png"
-dest_files=["res://.godot/imported/Laser.png-9f8cfe7f4878c3e124a7611593350731.ctex"]
+source_file="res://Sprites/Engines/Main Ship - Engines - Big Pulse Engine - Idle.png"
+dest_files=["res://.godot/imported/Main Ship - Engines - Big Pulse Engine - Idle.png-178bc10cfb6392467e0eae48901635d7.ctex"]
 
 [params]
 

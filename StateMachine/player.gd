@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@onready var player_sprite: Sprite2D = $Ship
+@onready var engine_effect_animation: AnimationPlayer = $EngineEffect/EngineEffectAnimation
+@onready var weapon_animation: AnimationPlayer = $Weapon/WeaponAnimation
+@onready var weapon_sprite: Sprite2D = $Weapon
 @onready var main = get_tree().get_root().get_node("Main")
 
 ## Variables for stats
@@ -12,7 +16,7 @@ var direction
 
 ## Variables for code
 var current_state
-@onready var player_sprite: Sprite2D = $Sprite2D
+
 
 func _ready():
 	change_state("Idle_State") # Start in the Idle state
@@ -42,6 +46,11 @@ func _physics_process(delta: float) -> void:
 	# Calculate velocity using lerp
 	velocity = lerp(velocity, input * MAX_SPEED, lerp_weight)
 	
+	# Update Animation
+	if input != Vector2.ZERO:
+		engine_effect_animation.play("Base_Engine_Powering")
+	else:
+		engine_effect_animation.play("Base_Engine_Idle")
 	
 	##State
 	# Ensure a State is active
@@ -49,3 +58,4 @@ func _physics_process(delta: float) -> void:
 		current_state.handle_input(delta)
 	## Function to enable movement
 	move_and_slide()
+	

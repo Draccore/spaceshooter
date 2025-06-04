@@ -2,7 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bqv4ih20iccdb" path="res://Sprites/background.png" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://d2hygqwu6wndq" path="res://Scenes/player.tscn" id="1_jjgbg"]
-[ext_resource type="Texture2D" uid="uid://dnthg1fv83ybo" path="res://Sprites/PlayerShipBlue.png" id="2_bo1nx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bo1nx"]
+load_path = "res://.godot/imported/PlayerShipBlue.png-eae4eb6468f0b4703f3b1b345c1125f2.ctex"
 
 [node name="Main" type="Node2D"]
 
@@ -17,4 +19,4 @@ position = Vector2(594, 342)
 
 [node name="PlayerShipBlue" type="Sprite2D" parent="."]
 position = Vector2(840, 497)
-texture = ExtResource("2_bo1nx")
+texture = SubResource("CompressedTexture2D_bo1nx")

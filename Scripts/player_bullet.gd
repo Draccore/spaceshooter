@@ -3,7 +3,7 @@ extends CharacterBody2D
 var spawnPos : Vector2
 var spawnRot : float
 var dir : float
-const speed = 500
+var speed : float
 
 func _ready():
 	global_position = spawnPos

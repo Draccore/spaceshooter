@@ -9,7 +9,7 @@ extends CharacterBody2D
 ## Variables for stats
 const FRICTION : float = 5
 const ACCEL : float = 5
-var MAX_SPEED : float = 600
+@export var MAX_SPEED : float = 600
 
 var input = Vector2.ZERO
 var direction

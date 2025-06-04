@@ -6,12 +6,11 @@ var bullet = preload("res://Scenes/player_bullet.tscn")
 @onready var right_spawn_pos = $"../Weapon/RightMarker"
 
 ## Stats for bullet
-@export var speed = 200
-@export var cooldown = 0.5
+@export var speed = 400
 @export var damage = 10
 
 ## Stats for player attack
-@export var attack_speed = 1   # 1 = default
+@export var attack_speed = 100   # 1 = default. Higher = faster, Lower = slower
 
 ## Can attack yes/no
 var attack_ready = true
@@ -37,9 +36,9 @@ func shoot_left():
 	instance.spawnPos = left_spawn_pos.global_position
 	instance.spawnRot = player.rotation
 	instance.speed = speed
+	instance.player_velocity = player.velocity
 		## Spawn bullet
 	player.main.add_child.call_deferred(instance)
-		# Sets attack_ready to false and starts timer for attack cooldown
 
 func shoot_right():
 		## Func for spawning bullet
@@ -50,9 +49,9 @@ func shoot_right():
 	instance.spawnPos = right_spawn_pos.global_position
 	instance.spawnRot = player.rotation
 	instance.speed = speed
+	instance.player_velocity = player.velocity
 		## Spawn bullet
 	player.main.add_child.call_deferred(instance)
-		# Sets attack_ready to false and starts timer for attack cooldown
 
 func attack_finished():
 	player.weapon_sprite.frame = 0

@@ -5,12 +5,14 @@ var spawnRot : float
 var dir : float
 var speed : float
 var player_velocity : Vector2 = Vector2.ZERO
-var min_speed : float = 200   
-var max_speed : float = 1000  
+var min_speed : float = 500
+var max_speed : float = 1000
 
 func _ready():
 	global_position = spawnPos
 	global_rotation = spawnRot
+	await get_tree().create_timer(10).timeout
+	queue_free()
 
 func _physics_process(delta: float) -> void:
 	var fire_direction = Vector2(0, -1).rotated(dir).normalized()

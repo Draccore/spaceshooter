@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dlldd2xthj5ij" path="res://StateMachine/attacking_state.gd" id="5_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://d2tnx241ichnv" path="res://Sprites/Engines/Main Ship - Engines - Base Engine - Powering.png" id="5_gymyn"]
 [ext_resource type="Texture2D" uid="uid://cdl7eq8o07xf0" path="res://Sprites/Weapons/Main Ship - Weapons - Auto Cannon.png" id="6_gymyn"]
-[ext_resource type="Script" uid="uid://ipsirgn5x0f8" path="res://Scripts/label.gd" id="7_3smsa"]
+[ext_resource type="Script" uid="uid://ipsirgn5x0f8" path="res://Scripts/state_label.gd" id="7_3smsa"]
 
 [sub_resource type="Animation" id="Animation_gymyn"]
 resource_name = "Auto_Cannon"

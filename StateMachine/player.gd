@@ -6,10 +6,19 @@ extends CharacterBody2D
 @onready var weapon_sprite: Sprite2D = $Weapon
 @onready var main = get_tree().get_root().get_node("Main")
 
+## Ship Sprites
+@onready var full_health_sprite = preload("res://Sprites/Ships/Main Ship - Base - Full health.png")
+@onready var slight_damage_sprite = preload("res://Sprites/Ships/Main Ship - Base - Slight damage.png")
+@onready var damaged_sprite = preload("res://Sprites/Ships/Main Ship - Base - Damaged.png")
+@onready var very_damaged_sprite = preload("res://Sprites/Ships/Main Ship - Base - Very damaged.png")
+
 ## Variables for stats
 const FRICTION : float = 5
 const ACCEL : float = 5
 @export var MAX_SPEED : float = 600
+@export var max_hp = 100
+var hp = max_hp
+var minimum_hp = 0
 
 var input = Vector2.ZERO
 var direction
@@ -59,3 +68,20 @@ func _physics_process(delta: float) -> void:
 	## Function to enable movement
 	move_and_slide()
 	
+	## Update sprite and hp
+	# Define thresholds from highest to lowest
+	var sprite_thresholds = [
+		{ "threshold": 0.75, "sprite": full_health_sprite },
+		{ "threshold": 0.5, "sprite": slight_damage_sprite },
+		{ "threshold": 0.25, "sprite": damaged_sprite },
+		{ "threshold": 0.0, "sprite": very_damaged_sprite },
+	]
+	
+	# Calculate health percentage safely
+	var hp_percentage = clamp(inverse_lerp(minimum_hp, max_hp, hp), 0.0, 1.0)
+	
+	# Choose appropriate sprite
+	for entry in sprite_thresholds:
+		if hp_percentage >= entry.threshold:
+			player_sprite.texture = entry.sprite
+			break

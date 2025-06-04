@@ -1,5 +1,5 @@
 extends Label
-@onready var player = $".."
 
-func _physics_process(delta: float) -> void:
-	self.text = (player.current_state.name)
+func _process(delta):
+	var fps = Engine.get_frames_per_second()
+	text = "FPS: " + str(fps)

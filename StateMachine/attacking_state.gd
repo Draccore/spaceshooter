@@ -10,7 +10,7 @@ var bullet = preload("res://Scenes/player_bullet.tscn")
 @export var damage = 10
 
 ## Stats for player attack
-@export var attack_speed = 100   # 1 = default. Higher = faster, Lower = slower
+@export var attack_speed = 2   # 1 = default. Higher = faster, Lower = slower
 
 ## Can attack yes/no
 var attack_ready = true

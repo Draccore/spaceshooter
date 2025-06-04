@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cl5lc2k8xdnom"]
+[gd_scene load_steps=7 format=3 uid="uid://cl5lc2k8xdnom"]
 
+[ext_resource type="Script" uid="uid://dmi2llgpchwm1" path="res://Scripts/main.gd" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://d2hygqwu6wndq" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bvdp0k5y08o7e" path="res://Scripts/label.gd" id="3_8gbba"]
 
@@ -13,6 +14,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_bo1nx")
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_8gbba")
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 position = Vector2(594, 342)

@@ -64,6 +64,16 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yhxw7")
 theme_override_styles/normal = SubResource("StyleBoxFlat_1ehe0")
 text = "Play"
 
+[node name="Upgrades" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_28flt")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover = SubResource("StyleBoxFlat_48xlc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yhxw7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ehe0")
+text = "Upgrades"
+
 [node name="Settings" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 10
@@ -85,5 +95,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cp0ys")
 text = "Exit Game"
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Upgrades" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

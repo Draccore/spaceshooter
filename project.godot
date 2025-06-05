@@ -14,6 +14,10 @@ config/name="SpaceShooter"
 run/main_scene="uid://c1gan7e0ld7ft"
 config/features=PackedStringArray("4.4", "Forward Plus")
 
+[autoload]
+
+PlayerStats="*res://Scripts/player_stats.gd"
+
 [display]
 
 window/size/viewport_width=960

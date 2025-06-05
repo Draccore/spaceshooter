@@ -12,14 +12,6 @@ extends CharacterBody2D
 @onready var damaged_sprite = preload("res://Sprites/Ships/Main Ship - Base - Damaged.png")
 @onready var very_damaged_sprite = preload("res://Sprites/Ships/Main Ship - Base - Very damaged.png")
 
-## Variables for stats
-const FRICTION : float = 5
-const ACCEL : float = 5
-@export var MAX_SPEED : float = 300
-@export var max_hp = 100
-var hp = max_hp
-var minimum_hp = 0
-
 var input = Vector2.ZERO
 var direction
 
@@ -29,6 +21,7 @@ var current_state
 
 func _ready():
 	change_state("Idle_State") # Start in the Idle state
+	PlayerStats.HP = PlayerStats.MAX_HP
 
 ## Handles the changing of states
 func change_state(new_state_name: String):
@@ -51,9 +44,9 @@ func _physics_process(delta: float) -> void:
 	).normalized()
 	
 	# Add Acceleration or friction if input is active or not
-	var lerp_weight = delta * (ACCEL if input else FRICTION)
+	var lerp_weight = delta * (PlayerStats.ACCEL if input else PlayerStats.FRICTION)
 	# Calculate velocity using lerp
-	velocity = lerp(velocity, input * MAX_SPEED, lerp_weight)
+	velocity = lerp(velocity, input * PlayerStats.MAX_SPEED, lerp_weight)
 	# Update Animationa
 	if input != Vector2.ZERO:
 		engine_effect_animation.play("Base_Engine_Powering")
@@ -77,10 +70,12 @@ func _physics_process(delta: float) -> void:
 	]
 	
 	# Calculate health percentage safely
-	var hp_percentage = clamp(inverse_lerp(minimum_hp, max_hp, hp), 0.0, 1.0)
+	var hp_percentage = clamp(inverse_lerp(PlayerStats.MIN_HP, PlayerStats.MAX_HP, PlayerStats.HP), 0.0, 1.0)
 	
 	# Choose appropriate sprite
 	for entry in sprite_thresholds:
 		if hp_percentage >= entry.threshold:
 			player_sprite.texture = entry.sprite
 			break
+	if Input.is_action_just_pressed("ui_accept"):
+		PlayerStats.HP += -5

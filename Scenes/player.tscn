@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d2hygqwu6wndq"]
+[gd_scene load_steps=22 format=3 uid="uid://d2hygqwu6wndq"]
 
 [ext_resource type="Script" uid="uid://cnda0noj7ed85" path="res://StateMachine/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://cn63fuk2ydemu" path="res://Sprites/Ships/Main Ship - Base - Full health.png" id="2_3smsa"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://d2tnx241ichnv" path="res://Sprites/Engines/Main Ship - Engines - Base Engine - Powering.png" id="5_gymyn"]
 [ext_resource type="Texture2D" uid="uid://cdl7eq8o07xf0" path="res://Sprites/Weapons/Main Ship - Weapons - Auto Cannon.png" id="6_gymyn"]
 [ext_resource type="Script" uid="uid://ipsirgn5x0f8" path="res://Scripts/state_label.gd" id="7_3smsa"]
+[ext_resource type="PackedScene" uid="uid://l1h7djbo82pr" path="res://Scenes/player_ui.tscn" id="12_pu2lt"]
+[ext_resource type="Script" uid="uid://bvdp0k5y08o7e" path="res://Scripts/label.gd" id="13_ukyrk"]
 
 [sub_resource type="Animation" id="Animation_gymyn"]
 resource_name = "Auto_Cannon"
@@ -374,9 +376,32 @@ script = ExtResource("5_f1ek2")
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_speed = 1.0
 
-[node name="Label" type="Label" parent="."]
-offset_left = 5.0
-offset_top = -97.0
-offset_right = 131.0
-offset_bottom = -17.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player_UI" parent="CanvasLayer" instance=ExtResource("12_pu2lt")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="STATE" type="Label" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -126.0
+offset_top = -80.0
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("7_3smsa")
+
+[node name="FPS COUNTER" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+script = ExtResource("13_ukyrk")

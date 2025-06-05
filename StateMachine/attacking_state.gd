@@ -6,11 +6,11 @@ var bullet = preload("res://Scenes/player_bullet.tscn")
 @onready var right_spawn_pos = $"../Weapon/RightMarker"
 
 ## Stats for bullet
-@export var speed = 400
+@export var speed = 300
 @export var damage = 10
 
 ## Stats for player attack
-@export var attack_speed = 2   # 1 = default. Higher = faster, Lower = slower
+@export var attack_speed = 1   # 1 = default. Higher = faster, Lower = slower
 
 ## Can attack yes/no
 var attack_ready = true

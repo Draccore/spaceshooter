@@ -15,7 +15,7 @@ extends CharacterBody2D
 ## Variables for stats
 const FRICTION : float = 5
 const ACCEL : float = 5
-@export var MAX_SPEED : float = 600
+@export var MAX_SPEED : float = 300
 @export var max_hp = 100
 var hp = max_hp
 var minimum_hp = 0
@@ -54,8 +54,7 @@ func _physics_process(delta: float) -> void:
 	var lerp_weight = delta * (ACCEL if input else FRICTION)
 	# Calculate velocity using lerp
 	velocity = lerp(velocity, input * MAX_SPEED, lerp_weight)
-	
-	# Update Animation
+	# Update Animationa
 	if input != Vector2.ZERO:
 		engine_effect_animation.play("Base_Engine_Powering")
 	else:

@@ -5,8 +5,6 @@ var spawnRot : float
 var dir : float
 var speed : float
 var player_velocity : Vector2 = Vector2.ZERO
-var min_speed : float = 500
-var max_speed : float = 1000
 
 func _ready():
 	global_position = spawnPos
@@ -15,18 +13,22 @@ func _ready():
 	queue_free()
 
 func _physics_process(delta: float) -> void:
+	# Calculate bullet's forward direction based on its rotation
 	var fire_direction = Vector2(0, -1).rotated(dir).normalized()
-	# Project player velocity onto the fire direction
-	var player_forward_vel = fire_direction * player_velocity.dot(fire_direction)
-	# Compute bullet's intended velocity
-	var total_velocity = fire_direction * speed + player_forward_vel
-	var speed_magnitude = total_velocity.length()
 	
-	# Clamp the magnitude
-	if speed_magnitude < min_speed:
-		total_velocity = total_velocity.normalized() * min_speed
-	elif speed_magnitude > max_speed:
-		total_velocity = total_velocity.normalized() * max_speed
+	# Project player velocity onto the bullet's forward direction
+	var player_forward_speed = player_velocity.dot(fire_direction)
 	
-	velocity = total_velocity
+	# Adjust bullet speed based on player movement relative to firing direction
+	var adjusted_speed: float
+	if player_forward_speed < 0:
+		# Moving backward relative to facing, reduce bullet speed but clamp minimum to 25% base speed
+		adjusted_speed = max(speed + player_forward_speed, speed * 0.5)
+	else:
+		# Moving forward or stationary, increase bullet speed by forward velocity
+		adjusted_speed = speed + player_forward_speed
+	
+	# Set bullet velocity vector
+	velocity = fire_direction * adjusted_speed
+	
 	move_and_slide()

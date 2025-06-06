@@ -8,6 +8,9 @@ var MAX_HP : float = 100
 var MIN_HP : float = 0
 var HP : float = MAX_HP
 
+## Player Upgrades
+var speed_upgrade : int = 0
+
 ## Weapon Stats
 var WPN_SPEED = 300
 var WPN_DAMAGE = 10

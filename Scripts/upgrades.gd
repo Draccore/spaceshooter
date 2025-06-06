@@ -1,7 +1,10 @@
 extends Control
 
+
+@onready var speed_upgrade_progress = $VBoxContainer/SpeedUpgradeProgress
 func _on_speed_pressed() -> void:
-	PlayerStats.MAX_SPEED += 10
+	PlayerStats.speed_upgrade += 1
+	speed_upgrade_progress.value += 1
 
 func _on_friction_pressed() -> void:
 	PlayerStats.FRICTION += 0.5

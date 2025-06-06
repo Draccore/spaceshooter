@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://d2hygqwu6wndq"]
+[gd_scene load_steps=27 format=3 uid="uid://d2hygqwu6wndq"]
 
 [ext_resource type="Script" uid="uid://cnda0noj7ed85" path="res://StateMachine/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://cn63fuk2ydemu" path="res://Sprites/Ships/Main Ship - Base - Full health.png" id="2_3smsa"]
 [ext_resource type="Script" uid="uid://c5j6mfdbyrnfs" path="res://StateMachine/idle_state.gd" id="2_x3wgy"]
 [ext_resource type="Script" uid="uid://dra3bkkk38ysf" path="res://StateMachine/moving_state.gd" id="3_3smsa"]
+[ext_resource type="Texture2D" uid="uid://deas85b6jurso" path="res://Sprites/Engines/Main Ship - Engines - Big Pulse Engine.png" id="3_7dp3o"]
 [ext_resource type="Texture2D" uid="uid://dbfb2wxi05q01" path="res://Sprites/Engines/Main Ship - Engines - Base Engine.png" id="3_8erm5"]
 [ext_resource type="Texture2D" uid="uid://bowpvbqui66em" path="res://Sprites/Engines/Main Ship - Engines - Base Engine - Idle.png" id="3_tx1dd"]
 [ext_resource type="Script" uid="uid://brrpxxsfjk3u3" path="res://StateMachine/dashing_state.gd" id="4_8erm5"]
@@ -13,6 +14,166 @@
 [ext_resource type="Script" uid="uid://ipsirgn5x0f8" path="res://Scripts/state_label.gd" id="7_3smsa"]
 [ext_resource type="PackedScene" uid="uid://l1h7djbo82pr" path="res://Scenes/player_ui.tscn" id="12_pu2lt"]
 [ext_resource type="Script" uid="uid://bvdp0k5y08o7e" path="res://Scripts/label.gd" id="13_ukyrk"]
+
+[sub_resource type="Animation" id="Animation_fd4e3"]
+resource_name = "Base_Engine"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_8erm5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qqcod"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_8erm5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_igrcy"]
+resource_name = "Big_Pulse_Engine"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_7dp3o")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fs7ks"]
+_data = {
+&"Base_Engine": SubResource("Animation_fd4e3"),
+&"Big_Pulse_Engine": SubResource("Animation_igrcy"),
+&"RESET": SubResource("Animation_qqcod")
+}
 
 [sub_resource type="Animation" id="Animation_gymyn"]
 resource_name = "Auto_Cannon"
@@ -322,6 +483,11 @@ script = ExtResource("1_fkybt")
 position = Vector2(-2, 0)
 rotation = 1.5708
 texture = ExtResource("3_8erm5")
+
+[node name="EngineType" type="AnimationPlayer" parent="Engine"]
+libraries = {
+&"": SubResource("AnimationLibrary_fs7ks")
+}
 
 [node name="Weapon" type="Sprite2D" parent="."]
 rotation = 1.5708

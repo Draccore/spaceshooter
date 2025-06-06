@@ -47,13 +47,28 @@ texture_progress = SubResource("GradientTexture2D_mstou")
 layout_mode = 2
 text = "Friction+"
 
+[node name="FrictionUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 30.0
+texture_progress = SubResource("GradientTexture2D_mstou")
+
 [node name="Acelleration+" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Acelleration+"
 
+[node name="AccelUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 30.0
+texture_progress = SubResource("GradientTexture2D_mstou")
+
 [node name="HP+" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "HP+"
+
+[node name="HPUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 30.0
+texture_progress = SubResource("GradientTexture2D_mstou")
 
 [node name="Back" type="Button" parent="VBoxContainer"]
 layout_mode = 2

@@ -15,3 +15,8 @@ func _on_quit_pressed() -> void:
 
 func _on_upgrades_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/upgrades.tscn")
+
+
+
+func _on_costumization_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/costumization.tscn")

@@ -18,10 +18,10 @@ var direction
 ## Variables for code
 var current_state
 
-
 func _ready():
 	change_state("Idle_State") # Start in the Idle state
-	PlayerStats.HP = PlayerStats.MAX_HP
+	PlayerStats.reset_hp()
+	set_engine(PlayerStats.selected_engine)
 
 ## Handles the changing of states
 func change_state(new_state_name: String):
@@ -35,18 +35,17 @@ func _physics_process(delta: float) -> void:
 	## Rotate player to face mouse and set direction to mouse
 	var direction = (get_angle_to(get_global_mouse_position()))
 	rotate(direction)
-	
-	
-		## Get Input
+
+	## Get Input
 	var input = Vector2(
 		Input.get_action_strength("Right") - Input.get_action_strength("Left"),
 		Input.get_action_strength("Down") - Input.get_action_strength("Up")
 	).normalized()
-	
+
 	# Add Acceleration or friction if input is active or not
-	var lerp_weight = delta * (PlayerStats.ACCEL if input else PlayerStats.FRICTION)
+	var lerp_weight = delta * (PlayerStats.get_stat("accel") if input else PlayerStats.get_stat("friction"))
 	# Calculate velocity using lerp
-	velocity = lerp(velocity, input * PlayerStats.MAX_SPEED, lerp_weight)
+	velocity = lerp(velocity, input * PlayerStats.get_stat("speed"), lerp_weight)
 	# Update Animationa
 	if input != Vector2.ZERO:
 		engine_effect_animation.play("Base_Engine_Powering")
@@ -70,12 +69,22 @@ func _physics_process(delta: float) -> void:
 	]
 	
 	# Calculate health percentage safely
-	var hp_percentage = clamp(inverse_lerp(PlayerStats.MIN_HP, PlayerStats.MAX_HP, PlayerStats.HP), 0.0, 1.0)
+	var hp_percentage = clamp(inverse_lerp(0, PlayerStats.get_stat("max_hp"), PlayerStats.HP), 0.0, 1.0)
 	
 	# Choose appropriate sprite
 	for entry in sprite_thresholds:
 		if hp_percentage >= entry.threshold:
 			player_sprite.texture = entry.sprite
 			break
+
+	# Example: test key to lose HP
 	if Input.is_action_just_pressed("ui_accept"):
-		PlayerStats.HP += -5
+		PlayerStats.HP -= 5
+
+# Call this to change engine visuals
+func set_engine(engine_name: String):
+	# Store the choice (could also do this in PlayerStats)
+	PlayerStats.selected_engine = engine_name
+	# Update sprite
+	$EngineSprite.texture = PlayerStats.engines[engine_name]["sprite"]
+	# Optionally update stats, particles, etc.

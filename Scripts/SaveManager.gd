@@ -1,28 +1,39 @@
 extends Node
 
 const SAVE_DIR := "user://saves/"
-const SAVE_FILE_NAME := "save.json"
+const SAVE_FILE_PREFIX := "save_slot_"
+const SAVE_FILE_SUFFIX := ".json"
 const SECURITY_KEY := "AJSFGIO900921AFSKIFaks01234912kASD0kfkasdl2123"
+const NUM_SLOTS := 3
 
+var current_slot := 1 # default to slot 1
+var current_display_name := "Save Slot 1"
 var player_data := PlayerData.new()
 
 func _ready():
 	DirAccess.make_dir_absolute(SAVE_DIR)
-	load_data()
 
-func save_data():
+func get_save_path(slot: int) -> String:
+	return SAVE_DIR + SAVE_FILE_PREFIX + str(slot) + SAVE_FILE_SUFFIX
+
+func save_data(display_name: String = ""):
+	if display_name != "":
+		current_display_name = display_name
+
+	# Gather player data
 	player_data.speed_upgrade = PlayerStats.upgrades.get("speed", 0)
 	player_data.health_upgrade = PlayerStats.upgrades.get("max_hp", 0)
 	player_data.friction_upgrade = PlayerStats.upgrades.get("friction", 0)
 	player_data.accel_upgrade = PlayerStats.upgrades.get("accel", 0)
 
-	var path = SAVE_DIR + SAVE_FILE_NAME
+	var path = get_save_path(current_slot)
 	var file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, SECURITY_KEY)
 	if file == null:
 		printerr("SaveManager: Could not open save file for writing: %s" % FileAccess.get_open_error())
 		return
 
 	var data = {
+		"display_name": current_display_name,
 		"player_data": {
 			"speed_upgrade": player_data.speed_upgrade,
 			"health_upgrade": player_data.health_upgrade,
@@ -33,10 +44,12 @@ func save_data():
 	var json_string = JSON.stringify(data, "\t")
 	file.store_string(json_string)
 	file.close()
-	print("SaveManager: Game saved.")
+	print("SaveManager: Game saved to slot %d with name '%s'." % [current_slot, current_display_name])
 
-func load_data():
-	var path = SAVE_DIR + SAVE_FILE_NAME
+func load_data(slot: int = -1):
+	if slot > 0:
+		current_slot = slot
+	var path = get_save_path(current_slot)
 	if FileAccess.file_exists(path):
 		var file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, SECURITY_KEY)
 		if file == null:
@@ -45,12 +58,12 @@ func load_data():
 
 		var content = file.get_as_text()
 		file.close()
-
 		var data = JSON.parse_string(content)
 		if data == null:
 			printerr("SaveManager: Cannot parse save file as JSON: %s" % content)
 			return
 
+		current_display_name = data.get("display_name", "Save Slot %d" % current_slot)
 		var pd = data.player_data
 		player_data.speed_upgrade = pd.speed_upgrade
 		player_data.health_upgrade = pd.health_upgrade
@@ -62,11 +75,14 @@ func load_data():
 		PlayerStats.upgrades["friction"] = player_data.friction_upgrade
 		PlayerStats.upgrades["accel"] = player_data.accel_upgrade
 
-		print("SaveManager: Game loaded.")
+		print("SaveManager: Game loaded from slot %d ('%s')." % [current_slot, current_display_name])
 	else:
 		printerr("SaveManager: No save file found at %s" % path)
+		current_display_name = "Save Slot %d" % current_slot
 
-func reset_save():
+func reset_save(slot: int = -1):
+	if slot > 0:
+		current_slot = slot
 	player_data.speed_upgrade = 0
 	player_data.health_upgrade = 0
 	player_data.friction_upgrade = 0
@@ -78,4 +94,30 @@ func reset_save():
 	PlayerStats.upgrades["accel"] = 0
 
 	save_data()
-	print("SaveManager: Save reset.")
+	print("SaveManager: Save reset for slot %d." % current_slot)
+
+func get_all_slot_display_names() -> Array:
+	var names = []
+	for i in range(1, NUM_SLOTS + 1):
+		var path = get_save_path(i)
+		if FileAccess.file_exists(path):
+			var file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, SECURITY_KEY)
+			if file:
+				var content = file.get_as_text()
+				file.close()
+				var data = JSON.parse_string(content)
+				var display_name = data.get("display_name", "Save Slot %d" % i)
+				names.append(display_name)
+			else:
+				names.append("Save Slot %d" % i)
+		else:
+			names.append("EMPTY")
+	return names
+
+# Optionally, set slot and display name externally
+func set_current_slot(slot: int):
+	current_slot = clamp(slot, 1, NUM_SLOTS)
+	load_data(current_slot)
+
+func set_current_display_name(name: String):
+	current_display_name = name

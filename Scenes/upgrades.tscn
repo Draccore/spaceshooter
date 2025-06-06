@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bv8g5tsra0v70"]
+[gd_scene load_steps=5 format=3 uid="uid://bv8g5tsra0v70"]
 
+[ext_resource type="Theme" uid="uid://3b6jfloh1m1l" path="res://Resources/black_and_white_theme/black_and_white.tres" id="1_mstou"]
 [ext_resource type="Script" uid="uid://bqd3u0tmk5220" path="res://Scripts/upgrades.gd" id="1_qnnf3"]
 
 [sub_resource type="Gradient" id="Gradient_qnnf3"]
@@ -18,6 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_mstou")
 script = ExtResource("1_qnnf3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -40,7 +42,6 @@ text = "Speed+"
 
 [node name="SpeedUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
 layout_mode = 2
-max_value = 30.0
 texture_progress = SubResource("GradientTexture2D_mstou")
 
 [node name="Friction+" type="Button" parent="VBoxContainer"]
@@ -49,7 +50,6 @@ text = "Friction+"
 
 [node name="FrictionUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
 layout_mode = 2
-max_value = 30.0
 texture_progress = SubResource("GradientTexture2D_mstou")
 
 [node name="Acelleration+" type="Button" parent="VBoxContainer"]
@@ -58,7 +58,6 @@ text = "Acelleration+"
 
 [node name="AccelUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
 layout_mode = 2
-max_value = 30.0
 texture_progress = SubResource("GradientTexture2D_mstou")
 
 [node name="HP+" type="Button" parent="VBoxContainer"]
@@ -67,15 +66,33 @@ text = "HP+"
 
 [node name="HPUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
 layout_mode = 2
-max_value = 30.0
 texture_progress = SubResource("GradientTexture2D_mstou")
+
+[node name="Save" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Save"
 
 [node name="Back" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -186.0
+offset_right = 20.0
+offset_bottom = -163.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="pressed" from="VBoxContainer/Speed+" to="." method="_on_speed_pressed"]
 [connection signal="pressed" from="VBoxContainer/Friction+" to="." method="_on_friction_pressed"]
 [connection signal="pressed" from="VBoxContainer/Acelleration+" to="." method="_on_acelleration_pressed"]
 [connection signal="pressed" from="VBoxContainer/HP+" to="." method="_on_hp_pressed"]
+[connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

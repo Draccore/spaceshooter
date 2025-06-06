@@ -7,7 +7,7 @@ func _on_play_pressed() -> void:
 		get_tree().change_scene_to_file("res://Scenes/saves.tscn")
 	else:
 		# Proceed to game
-		get_tree().change_scene_to_file("res://game.tscn")
+		get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 
 func _on_settings_pressed() -> void:

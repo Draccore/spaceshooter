@@ -38,7 +38,8 @@ func _on_slot_button_pressed(idx):
 		name_dialog.get_node("LineEdit").text = ""
 	else:
 		SaveManager.load_data(idx + 1) # slots are 1-indexed
-		# Transition to game or show slot loaded message
+		GameState.current_slot = idx + 1
+		# Optionally, send the player to the game here
 
 func _on_delete_button_pressed(idx):
 	selected_slot = idx
@@ -50,7 +51,8 @@ func _on_name_dialog_confirmed():
 		# Optionally show error
 		return
 	SaveManager.set_current_slot(selected_slot + 1)
-	SaveManager.reset_player_data()  # Make sure the save starts clean!
+	GameState.current_slot = selected_slot + 1
+	SaveManager.reset_player_data()
 	SaveManager.save_data(name)
 	update_slots()
 

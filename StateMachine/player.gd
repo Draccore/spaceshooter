@@ -32,6 +32,11 @@ func change_state(new_state_name: String):
 		current_state.enter_state(self) # Enter the new state 
 
 func _physics_process(delta: float) -> void:
+	## TESTING
+	if Input.is_action_just_pressed("Escape"):
+		get_tree().change_scene_to_file("res://Scenes/pausemenu.tscn")
+
+	
 	## Rotate player to face mouse and set direction to mouse
 	var direction = (get_angle_to(get_global_mouse_position()))
 	rotate(direction)

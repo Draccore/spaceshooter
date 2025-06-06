@@ -37,7 +37,6 @@ var engines = {
 			"speed": 20,
 			"accel": 0.5,
 			"friction": 0.5,
-			"max_hp": 10,
 		}
 	},
 	"pulse_engine": {
@@ -52,11 +51,10 @@ var engines = {
 			"speed": 20,
 			"accel": 0.5,
 			"friction": 0.5,
-			"max_hp": 10,
 		}
 	},
 }
-var selected_engine: String = "default"
+var selected_engine: String = "default_engine"
 
 # Current values for runtime-only stats
 var HP : float = base_stats["max_hp"]
@@ -68,8 +66,19 @@ var WPN_ATTACK_SPEED = 1
 
 # Get the current value (base + upgrade) of a stat
 func get_stat(stat_name: String) -> float:
-	if base_stats.has(stat_name) and upgrade_increments.has(stat_name) and upgrades.has(stat_name):
-		return base_stats[stat_name] + upgrade_increments[stat_name] * upgrades[stat_name]
+	# max_hp is global, not engine-specific
+	if stat_name == "max_hp":
+		if base_stats.has("max_hp") and upgrade_increments.has("max_hp") and upgrades.has("max_hp"):
+			return base_stats["max_hp"] + upgrade_increments["max_hp"] * upgrades["max_hp"]
+		return 0
+
+	# Other stats are engine-specific
+	var engine_name = selected_engine
+	if not engine_name or not engines.has(engine_name):
+		engine_name = "default_engine"
+	var engine = engines[engine_name]
+	if engine.base_stats.has(stat_name) and engine.upgrade_increments.has(stat_name) and upgrades.has(stat_name):
+		return engine.base_stats[stat_name] + engine.upgrade_increments[stat_name] * upgrades[stat_name]
 	return 0
 
 # Upgrade a stat by one

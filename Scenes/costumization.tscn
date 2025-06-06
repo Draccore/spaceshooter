@@ -33,6 +33,22 @@ text = "Pulse Engine"
 layout_mode = 2
 text = "Back"
 
-[node name="PreviewSprite" type="Sprite2D" parent="."]
+[node name="Container" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
+[node name="PreviewSprite" type="Sprite2D" parent="Container"]
+
+[connection signal="pressed" from="VBoxContainer/Base_Engine" to="." method="_on_base_engine_pressed"]
+[connection signal="pressed" from="VBoxContainer/Pulse_Engine" to="." method="_on_pulse_engine_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

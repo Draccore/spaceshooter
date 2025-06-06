@@ -86,5 +86,5 @@ func set_engine(engine_name: String):
 	# Store the choice (could also do this in PlayerStats)
 	PlayerStats.selected_engine = engine_name
 	# Update sprite
-	$EngineSprite.texture = PlayerStats.engines[engine_name]["sprite"]
+	$Engine.texture = PlayerStats.engines[engine_name]["sprite"]
 	# Optionally update stats, particles, etc.

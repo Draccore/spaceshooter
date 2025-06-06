@@ -61,13 +61,19 @@ text = "Delete Save"
 layout_mode = 2
 text = "Back"
 
-[node name="ConfirmDialog" type="AcceptDialog" parent="."]
-
 [node name="NameDialog" type="AcceptDialog" parent="."]
+title = "New File Name"
+size = Vector2i(300, 100)
 
 [node name="LineEdit" type="LineEdit" parent="NameDialog"]
 offset_right = 68.5625
 offset_bottom = 31.0
+
+[node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
+title = "Delete Save"
+size = Vector2i(200, 70)
+ok_button_text = "Yes"
+cancel_button_text = "No"
 
 [connection signal="pressed" from="VBoxContainer/Slot 1/Slot Button" to="." method="_on_VBoxContainer_HBoxContainer_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Slot 1/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer_DeleteButton_pressed"]
@@ -76,5 +82,6 @@ offset_bottom = 31.0
 [connection signal="pressed" from="VBoxContainer/Slot 3/Slot Button" to="." method="_on_VBoxContainer_HBoxContainer3_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Slot 3/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer3_DeleteButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="confirmed" from="ConfirmDialog" to="." method="_on_confirm_dialog_confirmed"]
 [connection signal="confirmed" from="NameDialog" to="." method="_on_name_dialog_confirmed"]
+[connection signal="canceled" from="ConfirmDialog" to="." method="_on_confirm_dialog_canceled"]
+[connection signal="confirmed" from="ConfirmDialog" to="." method="_on_confirm_dialog_confirmed"]

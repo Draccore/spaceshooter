@@ -13,7 +13,6 @@ extends Control
 
 var selected_slot := -1
 
-# Optionally, add this in your scene
 @onready var name_dialog = $NameDialog # PopupDialog with LineEdit as child
 @onready var confirm_dialog = $ConfirmDialog # AcceptDialog for deletion
 
@@ -39,7 +38,8 @@ func _on_slot_button_pressed(idx):
 	else:
 		SaveManager.load_data(idx + 1) # slots are 1-indexed
 		GameState.current_slot = idx + 1
-		# Optionally, send the player to the game here
+		GameState.save_last_used_slot()
+		# Transition to game or show slot loaded message
 
 func _on_delete_button_pressed(idx):
 	selected_slot = idx
@@ -52,14 +52,22 @@ func _on_name_dialog_confirmed():
 		return
 	SaveManager.set_current_slot(selected_slot + 1)
 	GameState.current_slot = selected_slot + 1
-	SaveManager.reset_player_data()
+	GameState.save_last_used_slot()
+	SaveManager.reset_player_data()  # Make sure the save starts clean!
 	SaveManager.save_data(name)
 	update_slots()
 
 func _on_confirm_dialog_confirmed():
 	SaveManager.set_current_slot(selected_slot + 1)
+	GameState.current_slot = selected_slot + 1
+	GameState.save_last_used_slot()
 	SaveManager.delete_save()
 	update_slots()
+
+	# New logic: If all saves are now empty, reset current_slot
+	if SaveManager.all_saves_empty():
+		GameState.current_slot = -1
+		GameState.save_last_used_slot()
 
 # Connect the signals in the editor or with code like this:
 func _on_VBoxContainer_HBoxContainer_Button_pressed():
@@ -74,7 +82,6 @@ func _on_VBoxContainer_HBoxContainer2_DeleteButton_pressed():
 	_on_delete_button_pressed(1)
 func _on_VBoxContainer_HBoxContainer3_DeleteButton_pressed():
 	_on_delete_button_pressed(2)
-
 
 func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

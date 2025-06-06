@@ -2,12 +2,12 @@ extends Control
 
 
 func _on_play_pressed() -> void:
-	if GameState.current_slot == -1 or not SaveManager.save_exists(GameState.current_slot):
-		# Show slot selection/creation screen
-		get_tree().change_scene_to_file("res://Scenes/saves.tscn")
-	else:
-		# Proceed to game
+	GameState.load_last_used_slot()
+	print("DEBUG: Attempting to use save slot: ", GameState.current_slot)
+	if GameState.current_slot != -1 and SaveManager.save_exists(GameState.current_slot):
 		get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	else:
+		get_tree().change_scene_to_file("res://Scenes/saves.tscn")
 
 
 func _on_settings_pressed() -> void:

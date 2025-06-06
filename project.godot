@@ -31,6 +31,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="SpaceShooter"
 
+[gui]
+
+theme/custom_font="uid://cbpaji6ennks6"
+
 [input]
 
 Left={

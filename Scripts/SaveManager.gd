@@ -146,3 +146,10 @@ func reset_player_data():
 func save_exists(slot: int) -> bool:
 	var path = get_save_path(slot)
 	return FileAccess.file_exists(path)
+
+func all_saves_empty() -> bool:
+	var names = get_all_slot_display_names()
+	for name in names:
+		if name != "EMPTY":
+			return false
+	return true

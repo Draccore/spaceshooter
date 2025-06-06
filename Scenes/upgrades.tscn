@@ -1,16 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv8g5tsra0v70"]
+[gd_scene load_steps=3 format=3 uid="uid://bv8g5tsra0v70"]
 
 [ext_resource type="Theme" uid="uid://3b6jfloh1m1l" path="res://Resources/black_and_white_theme/black_and_white.tres" id="1_mstou"]
 [ext_resource type="Script" uid="uid://bqd3u0tmk5220" path="res://Scripts/upgrades.gd" id="1_qnnf3"]
-
-[sub_resource type="Gradient" id="Gradient_qnnf3"]
-offsets = PackedFloat32Array(0.964789, 0.992958, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.0492958, 0.0492958, 0.0492958, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mstou"]
-gradient = SubResource("Gradient_qnnf3")
-width = 128
-height = 8
 
 [node name="Upgrades" type="Control"]
 layout_mode = 3
@@ -40,33 +31,41 @@ grow_vertical = 2
 layout_mode = 2
 text = "Speed+"
 
-[node name="SpeedUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
-layout_mode = 2
-texture_progress = SubResource("GradientTexture2D_mstou")
+[node name="SpeedValueLabel" type="Label" parent="VBoxContainer/Speed+"]
+layout_mode = 0
+offset_left = 183.5
+offset_right = 223.5
+offset_bottom = 20.0
 
 [node name="Friction+" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Friction+"
 
-[node name="FrictionUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
-layout_mode = 2
-texture_progress = SubResource("GradientTexture2D_mstou")
+[node name="FrictionValueLabel" type="Label" parent="VBoxContainer/Friction+"]
+layout_mode = 0
+offset_left = 183.5
+offset_right = 223.5
+offset_bottom = 20.0
 
-[node name="Acelleration+" type="Button" parent="VBoxContainer"]
+[node name="Acceleration+" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Acelleration+"
 
-[node name="AccelUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
-layout_mode = 2
-texture_progress = SubResource("GradientTexture2D_mstou")
+[node name="AccelValueLabel" type="Label" parent="VBoxContainer/Acceleration+"]
+layout_mode = 0
+offset_left = 183.5
+offset_right = 223.5
+offset_bottom = 20.0
 
 [node name="HP+" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "HP+"
 
-[node name="HPUpgradeProgress" type="TextureProgressBar" parent="VBoxContainer"]
-layout_mode = 2
-texture_progress = SubResource("GradientTexture2D_mstou")
+[node name="HPValueLabel" type="Label" parent="VBoxContainer/HP+"]
+layout_mode = 0
+offset_left = 183.5
+offset_right = 223.5
+offset_bottom = 20.0
 
 [node name="Save" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -92,7 +91,7 @@ grow_vertical = 2
 
 [connection signal="pressed" from="VBoxContainer/Speed+" to="." method="_on_speed_pressed"]
 [connection signal="pressed" from="VBoxContainer/Friction+" to="." method="_on_friction_pressed"]
-[connection signal="pressed" from="VBoxContainer/Acelleration+" to="." method="_on_acelleration_pressed"]
+[connection signal="pressed" from="VBoxContainer/Acceleration+" to="." method="_on_acceleration_pressed"]
 [connection signal="pressed" from="VBoxContainer/HP+" to="." method="_on_hp_pressed"]
 [connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

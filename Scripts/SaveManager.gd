@@ -80,9 +80,19 @@ func load_data(slot: int = -1):
 		printerr("SaveManager: No save file found at %s" % path)
 		current_display_name = "Save Slot %d" % current_slot
 
-func reset_save(slot: int = -1):
+func delete_save(slot: int = -1):
 	if slot > 0:
 		current_slot = slot
+
+	# Remove the actual save file
+	var path = get_save_path(current_slot)
+	if FileAccess.file_exists(path):
+		DirAccess.remove_absolute(path)
+		print("SaveManager: Save file deleted for slot %d." % current_slot)
+	else:
+		print("SaveManager: No save file found to delete for slot %d." % current_slot)
+
+	# Optionally: Reset in-memory data
 	player_data.speed_upgrade = 0
 	player_data.health_upgrade = 0
 	player_data.friction_upgrade = 0
@@ -93,8 +103,7 @@ func reset_save(slot: int = -1):
 	PlayerStats.upgrades["friction"] = 0
 	PlayerStats.upgrades["accel"] = 0
 
-	save_data()
-	print("SaveManager: Save reset for slot %d." % current_slot)
+	current_display_name = "Save Slot %d" % current_slot
 
 func get_all_slot_display_names() -> Array:
 	var names = []
@@ -121,3 +130,19 @@ func set_current_slot(slot: int):
 
 func set_current_display_name(name: String):
 	current_display_name = name
+
+
+func reset_player_data():
+	player_data.speed_upgrade = 0
+	player_data.health_upgrade = 0
+	player_data.friction_upgrade = 0
+	player_data.accel_upgrade = 0
+
+	PlayerStats.upgrades["speed"] = 0
+	PlayerStats.upgrades["max_hp"] = 0
+	PlayerStats.upgrades["friction"] = 0
+	PlayerStats.upgrades["accel"] = 0
+
+func save_exists(slot: int) -> bool:
+	var path = get_save_path(slot)
+	return FileAccess.file_exists(path)

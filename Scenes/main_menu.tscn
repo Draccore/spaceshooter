@@ -95,7 +95,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_trj04")
 theme_override_styles/normal = SubResource("StyleBoxFlat_n45e2")
 text = "Settings"
 
-[node name="Load Save" type="Button" parent="VBoxContainer"]
+[node name="Saves" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_28flt")
@@ -103,17 +103,7 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/hover = SubResource("StyleBoxFlat_ce3w2")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_trj04")
 theme_override_styles/normal = SubResource("StyleBoxFlat_n45e2")
-text = "Load Save"
-
-[node name="Reset Save" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("1_28flt")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/hover = SubResource("StyleBoxFlat_ce3w2")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_trj04")
-theme_override_styles/normal = SubResource("StyleBoxFlat_n45e2")
-text = "Reset Save"
+text = "Saves"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -129,6 +119,5 @@ text = "Save & Exit"
 [connection signal="pressed" from="VBoxContainer/Customization" to="." method="_on_costumization_pressed"]
 [connection signal="pressed" from="VBoxContainer/Upgrades" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="VBoxContainer/Load Save" to="." method="_on_load_save_pressed"]
-[connection signal="pressed" from="VBoxContainer/Reset Save" to="." method="_on_reset_save_pressed"]
+[connection signal="pressed" from="VBoxContainer/Saves" to="." method="_on_saves_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

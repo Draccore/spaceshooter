@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 PlayerStats="*res://Scripts/player_stats.gd"
 SaveManager="*res://Scripts/SaveManager.gd"
 QuitHandler="*res://Scripts/PersistentQuitHandler.gd"
+GameState="*res://Scripts/GameState.gd"
 
 [display]
 

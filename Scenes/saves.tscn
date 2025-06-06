@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://ssue431a37q7"]
+[gd_scene load_steps=2 format=3 uid="uid://ssue431a37q7"]
+
+[ext_resource type="Script" uid="uid://c7g47ouc7jppt" path="res://Scenes/saves.gd" id="1_gneyv"]
 
 [node name="Saves" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_gneyv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -25,26 +28,51 @@ grow_vertical = 2
 [node name="Slot 1" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/Slot 1"]
+[node name="Slot Button" type="Button" parent="VBoxContainer/Slot 1"]
 layout_mode = 2
 
 [node name="Delete Button" type="Button" parent="VBoxContainer/Slot 1"]
 layout_mode = 2
+text = "Delete Save"
 
 [node name="Slot 2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/Slot 2"]
+[node name="Slot Button" type="Button" parent="VBoxContainer/Slot 2"]
 layout_mode = 2
 
 [node name="Delete Button" type="Button" parent="VBoxContainer/Slot 2"]
 layout_mode = 2
+text = "Delete Save"
 
 [node name="Slot 3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/Slot 3"]
+[node name="Slot Button" type="Button" parent="VBoxContainer/Slot 3"]
 layout_mode = 2
 
 [node name="Delete Button" type="Button" parent="VBoxContainer/Slot 3"]
 layout_mode = 2
+text = "Delete Save"
+
+[node name="Back" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="ConfirmDialog" type="AcceptDialog" parent="."]
+
+[node name="NameDialog" type="AcceptDialog" parent="."]
+
+[node name="LineEdit" type="LineEdit" parent="NameDialog"]
+offset_right = 68.5625
+offset_bottom = 31.0
+
+[connection signal="pressed" from="VBoxContainer/Slot 1/Slot Button" to="." method="_on_VBoxContainer_HBoxContainer_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot 1/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer_DeleteButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot 2/Slot Button" to="." method="_on_VBoxContainer_HBoxContainer2_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot 2/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer2_DeleteButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot 3/Slot Button" to="." method="_on_VBoxContainer_HBoxContainer3_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot 3/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer3_DeleteButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="confirmed" from="ConfirmDialog" to="." method="_on_confirm_dialog_confirmed"]
+[connection signal="confirmed" from="NameDialog" to="." method="_on_name_dialog_confirmed"]

@@ -53,6 +53,15 @@ text = "Saves"
 layout_mode = 2
 text = "Save & Exit"
 
+[node name="CurrentSaveLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 20.0
+grow_horizontal = 0
+
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Customization" to="." method="_on_costumization_pressed"]
 [connection signal="pressed" from="VBoxContainer/Upgrades" to="." method="_on_upgrades_pressed"]

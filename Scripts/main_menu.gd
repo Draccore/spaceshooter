@@ -1,10 +1,13 @@
 extends Control
 
+func _enter_tree() -> void:
+	$CurrentSaveLabel.text = "Current Save: %s" % SaveManager.current_display_name
 
 func _on_play_pressed() -> void:
 	GameState.load_last_used_slot()
 	print("DEBUG: Attempting to use save slot: ", GameState.current_slot)
 	if GameState.current_slot != -1 and SaveManager.save_exists(GameState.current_slot):
+		SaveManager.load_data(GameState.current_slot)
 		get_tree().change_scene_to_file("res://Scenes/main.tscn")
 	else:
 		get_tree().change_scene_to_file("res://Scenes/saves.tscn")

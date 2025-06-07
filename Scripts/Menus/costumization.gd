@@ -3,8 +3,8 @@ extends Control
 # Called when engine option is selected in customization menu
 func _on_engine_select(engine_name: String) -> void:
 	PlayerStats.selected_engine = engine_name
-	# Update preview if present
 	$Container/PreviewSprite.texture = PlayerStats.engines[engine_name]["sprite"]
+	SaveManager.save_data() # Save after selection to persist engine choice
 
 func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

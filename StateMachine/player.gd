@@ -32,30 +32,30 @@ func change_state(new_state_name: String):
 		current_state.enter_state(self) # Enter the new state 
 
 func _physics_process(delta: float) -> void:
-	## TESTING
-	if Input.is_action_just_pressed("Escape"):
-		get_tree().change_scene_to_file("res://Scenes/pausemenu.tscn")
-
+	if !is_inside_tree() or get_viewport() == null or get_world_2d() == null:
+		return
+	
+	update_ship_sprite()
 	
 	## Rotate player to face mouse and set direction to mouse
 	var direction = (get_angle_to(get_global_mouse_position()))
 	rotate(direction)
-
+	
 	## Get Input
 	var input = Vector2(
 		Input.get_action_strength("Right") - Input.get_action_strength("Left"),
 		Input.get_action_strength("Down") - Input.get_action_strength("Up")
 	).normalized()
-
+	
 	# Add Acceleration or friction if input is active or not
 	var lerp_weight = delta * (PlayerStats.get_stat("accel") if input else PlayerStats.get_stat("friction"))
 	# Calculate velocity using lerp
 	velocity = lerp(velocity, input * PlayerStats.get_stat("speed"), lerp_weight)
-	# Update Animationa
+	# Update Animation
 	if input != Vector2.ZERO:
-		engine_effect_animation.play("base_engine_power")
+		engine_effect_animation.play(get_meta("engine_effect_anim_power"))
 	else:
-		engine_effect_animation.play("base_engine_idle")
+		engine_effect_animation.play(get_meta("engine_effect_anim_idle"))
 	
 	##State
 	# Ensure a State is active
@@ -64,8 +64,29 @@ func _physics_process(delta: float) -> void:
 	## Function to enable movement
 	move_and_slide()
 	
+	
+		## TESTING BELOW THIS LINE
+	if Input.is_action_just_pressed("Escape"):
+		get_tree().change_scene_to_file("res://Scenes/pausemenu.tscn")
+		
+		# Example: test key to lose HP
+	if Input.is_action_just_pressed("ui_accept"):
+		PlayerStats.HP -= 5
+
+# Call this to change engine visuals
+func set_engine(engine_name: String):
+	PlayerStats.selected_engine = engine_name
+	$Engine.texture = PlayerStats.engines[engine_name]["sprite"]
+	var anim_power = PlayerStats.engines[engine_name].get("effect_animation_power", "base_engine_power")
+	var anim_idle = PlayerStats.engines[engine_name].get("effect_animation_idle", "base_engine_idle")
+	set_meta("engine_effect_anim_power", anim_power)
+	set_meta("engine_effect_anim_idle", anim_idle)
+	# Immediately play the correct idle animation
+	engine_effect_animation.play(anim_idle)
+
+func update_ship_sprite():
 	## Update sprite and hp
-	# Define thresholds from highest to lowest
+		# Define thresholds from highest to lowest
 	var sprite_thresholds = [
 		{ "threshold": 0.75, "sprite": full_health_sprite },
 		{ "threshold": 0.5, "sprite": slight_damage_sprite },
@@ -73,23 +94,11 @@ func _physics_process(delta: float) -> void:
 		{ "threshold": 0.0, "sprite": very_damaged_sprite },
 	]
 	
-	# Calculate health percentage safely
+		# Calculate health percentage safely
 	var hp_percentage = clamp(inverse_lerp(0, PlayerStats.get_stat("max_hp"), PlayerStats.HP), 0.0, 1.0)
 	
-	# Choose appropriate sprite
+		# Choose appropriate sprite
 	for entry in sprite_thresholds:
 		if hp_percentage >= entry.threshold:
 			player_sprite.texture = entry.sprite
 			break
-
-	# Example: test key to lose HP
-	if Input.is_action_just_pressed("ui_accept"):
-		PlayerStats.HP -= 5
-
-# Call this to change engine visuals
-func set_engine(engine_name: String):
-	# Store the choice (could also do this in PlayerStats)
-	PlayerStats.selected_engine = engine_name
-	# Update sprite
-	$Engine.texture = PlayerStats.engines[engine_name]["sprite"]
-	# Optionally update stats, particles, etc.

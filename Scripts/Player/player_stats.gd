@@ -28,6 +28,8 @@ var engines = {
 	"default_engine": {
 		"display_name": "Standard Engine",
 		"sprite": preload("res://Sprites/Player/Main Ship/Main Ship - Engines/PNGs/Main Ship - Engines - Base Engine.png"),
+		"effect_animation_power": "base_engine_power",
+		"effect_animation_idle": "base_engine_idle",
 		"base_stats": {
 			"speed": 200,
 			"accel": 2,
@@ -42,6 +44,8 @@ var engines = {
 	"pulse_engine": {
 		"display_name": "Big Pulse Engine",
 		"sprite": preload("res://Sprites/Player/Main Ship/Main Ship - Engines/PNGs/Main Ship - Engines - Big Pulse Engine.png"),
+		"effect_animation_power": "big_pulse_engine_power",
+		"effect_animation_idle": "big_pulse_engine_idle",
 		"base_stats": {
 			"speed": 600,
 			"accel": 0.5,
@@ -56,6 +60,8 @@ var engines = {
 	"burst_engine": {
 		"display_name": "Burst Engine",
 		"sprite": preload("res://Sprites/Player/Main Ship/Main Ship - Engines/PNGs/Main Ship - Engines - Burst Engine.png"),
+		"effect_animation_power": "base_engine_power",
+		"effect_animation_idle": "base_engine_idle",
 		"base_stats": {
 			"speed": 250,
 			"accel": 10,
@@ -70,6 +76,8 @@ var engines = {
 	"supercharged_engine": {
 		"display_name": "Supercharged Engine",
 		"sprite": preload("res://Sprites/Player/Main Ship/Main Ship - Engines/PNGs/Main Ship - Engines - Supercharged Engine.png"),
+		"effect_animation_power": "base_engine_power",
+		"effect_animation_idle": "base_engine_idle",
 		"base_stats": {
 			"speed": 700,
 			"accel": 8,

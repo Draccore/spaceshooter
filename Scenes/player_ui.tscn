@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://l1h7djbo82pr"]
 
 [ext_resource type="Theme" uid="uid://3b6jfloh1m1l" path="res://Resources/black_and_white_theme/black_and_white.tres" id="1_dxtgh"]
-[ext_resource type="Script" uid="uid://dk3iskykt14m8" path="res://Scripts/player_ui.gd" id="1_ohrjl"]
+[ext_resource type="Script" uid="uid://dk3iskykt14m8" path="res://Scripts/Player/player_ui.gd" id="1_ohrjl"]
 
 [node name="Player_UI" type="Control"]
 layout_mode = 3

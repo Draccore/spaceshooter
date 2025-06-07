@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxnkfsfqpf2qn"]
 
-[ext_resource type="Script" uid="uid://0do634nvdby1" path="res://Scripts/settings.gd" id="1_i44u3"]
+[ext_resource type="Script" uid="uid://0do634nvdby1" path="res://Scripts/Menus/settings.gd" id="1_i44u3"]
 [ext_resource type="Theme" uid="uid://3b6jfloh1m1l" path="res://Resources/black_and_white_theme/black_and_white.tres" id="1_lhmql"]
 
 [node name="Settings" type="Control"]

@@ -7,10 +7,10 @@ extends CharacterBody2D
 @onready var main = get_tree().get_root().get_node("Main")
 
 ## Ship Sprites
-@onready var full_health_sprite = preload("res://Sprites/Ships/Main Ship - Base - Full health.png")
-@onready var slight_damage_sprite = preload("res://Sprites/Ships/Main Ship - Base - Slight damage.png")
-@onready var damaged_sprite = preload("res://Sprites/Ships/Main Ship - Base - Damaged.png")
-@onready var very_damaged_sprite = preload("res://Sprites/Ships/Main Ship - Base - Very damaged.png")
+@onready var full_health_sprite = preload("res://Sprites/Player/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Full health.png")
+@onready var slight_damage_sprite = preload("res://Sprites/Player/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Slight damage.png")
+@onready var damaged_sprite = preload("res://Sprites/Player/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Damaged.png")
+@onready var very_damaged_sprite = preload("res://Sprites/Player/Main Ship/Main Ship - Bases/PNGs/Main Ship - Base - Very damaged.png")
 
 var input = Vector2.ZERO
 var direction
@@ -53,9 +53,9 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, input * PlayerStats.get_stat("speed"), lerp_weight)
 	# Update Animationa
 	if input != Vector2.ZERO:
-		engine_effect_animation.play("Base_Engine_Powering")
+		engine_effect_animation.play("base_engine_power")
 	else:
-		engine_effect_animation.play("Base_Engine_Idle")
+		engine_effect_animation.play("base_engine_idle")
 	
 	##State
 	# Ensure a State is active

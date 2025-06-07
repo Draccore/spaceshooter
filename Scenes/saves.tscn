@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ssue431a37q7"]
 
-[ext_resource type="Script" uid="uid://c7g47ouc7jppt" path="res://Scenes/saves.gd" id="1_gneyv"]
+[ext_resource type="Script" uid="uid://c7g47ouc7jppt" path="res://Scripts/Saving/saves.gd" id="1_gneyv"]
 [ext_resource type="Theme" uid="uid://3b6jfloh1m1l" path="res://Resources/black_and_white_theme/black_and_white.tres" id="1_tvaj7"]
 
 [node name="Saves" type="Control"]
@@ -57,10 +57,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Delete Save"
 
-[node name="Back" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Back"
-
 [node name="NameDialog" type="AcceptDialog" parent="."]
 title = "New File Name"
 size = Vector2i(300, 100)
@@ -71,9 +67,19 @@ offset_bottom = 31.0
 
 [node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
 title = "Delete Save"
-size = Vector2i(200, 70)
+size = Vector2i(200, 74)
 ok_button_text = "Yes"
 cancel_button_text = "No"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 63.0
+grow_vertical = 0
+text = "Back"
 
 [connection signal="pressed" from="VBoxContainer/Slot 1/Slot Button" to="." method="_on_VBoxContainer_HBoxContainer_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Slot 1/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer_DeleteButton_pressed"]
@@ -81,7 +87,7 @@ cancel_button_text = "No"
 [connection signal="pressed" from="VBoxContainer/Slot 2/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer2_DeleteButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/Slot 3/Slot Button" to="." method="_on_VBoxContainer_HBoxContainer3_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Slot 3/Delete Button" to="." method="_on_VBoxContainer_HBoxContainer3_DeleteButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="confirmed" from="NameDialog" to="." method="_on_name_dialog_confirmed"]
 [connection signal="canceled" from="ConfirmDialog" to="." method="_on_confirm_dialog_canceled"]
 [connection signal="confirmed" from="ConfirmDialog" to="." method="_on_confirm_dialog_confirmed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

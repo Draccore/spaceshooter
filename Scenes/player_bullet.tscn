@@ -1,7 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://b2fxtnw6iu2c"]
 
-[ext_resource type="Script" uid="uid://bymhd0ssto0ab" path="res://Scripts/player_bullet.gd" id="1_3m2mg"]
-[ext_resource type="Texture2D" uid="uid://cdwgy1nsqgbhk" path="res://Sprites/Weapons/Main ship weapon - Projectile - Auto cannon bullet.png" id="2_3m2mg"]
+[ext_resource type="Script" uid="uid://bymhd0ssto0ab" path="res://Scripts/Player/Weapons/player_bullet.gd" id="1_3m2mg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bg8x2"]
+load_path = "res://.godot/imported/Main ship weapon - Projectile - Auto cannon bullet.png-68025ac2d784d0f78c4e028e7509bf2b.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nocgn"]
 radius = 4.0
@@ -19,7 +21,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_3m2mg")]
+"values": [SubResource("CompressedTexture2D_bg8x2")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -73,7 +75,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_3m2mg")]
+"values": [SubResource("CompressedTexture2D_bg8x2")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -126,7 +128,7 @@ script = ExtResource("1_3m2mg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
-texture = ExtResource("2_3m2mg")
+texture = SubResource("CompressedTexture2D_bg8x2")
 hframes = 4
 region_rect = Rect2(100, 0, 300, 500)
 

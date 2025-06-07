@@ -16,10 +16,10 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 
 [autoload]
 
-PlayerStats="*res://Scripts/player_stats.gd"
-SaveManager="*res://Scripts/SaveManager.gd"
-QuitHandler="*res://Scripts/PersistentQuitHandler.gd"
-GameState="*res://Scripts/GameState.gd"
+PlayerStats="*res://Scripts/Player/player_stats.gd"
+SaveManager="*res://Scripts/Saving/SaveManager.gd"
+QuitHandler="*res://Scripts/Saving/PersistentQuitHandler.gd"
+GameState="*res://Scripts/Saving/GameState.gd"
 
 [display]
 

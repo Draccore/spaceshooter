@@ -1,9 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cl5lc2k8xdnom"]
 
 [ext_resource type="PackedScene" uid="uid://d2hygqwu6wndq" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://bu72srjyshxje" path="res://Scenes/Enemies/kla'ed_battlecruiser.tscn" id="3_8gbba"]
 [ext_resource type="Texture2D" uid="uid://fcrc10l1sias" path="res://Sprites/Space Background.png" id="3_jjvhh"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bo1nx"]
 
 [sub_resource type="Environment" id="Environment_bo1nx"]
 background_mode = 3
@@ -13,10 +12,6 @@ tonemap_mode = 3
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 position = Vector2(594, 342)
-
-[node name="PlayerShipBlue" type="Sprite2D" parent="."]
-position = Vector2(840, 497)
-texture = SubResource("CompressedTexture2D_bo1nx")
 
 [node name="BackGround" type="TextureRect" parent="."]
 z_index = -4096
@@ -36,3 +31,7 @@ stretch_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bo1nx")
+
+[node name="Kla\'ed_Battlecruiser" parent="." instance=ExtResource("3_8gbba")]
+position = Vector2(801, 458)
+player_path = NodePath("../Player")

@@ -90,12 +90,14 @@ var engines = {
 		}
 	},
 }
+
 var selected_engine: String = "default_engine"
+var selected_ship: String = "default_ship"
 
 # Current values for runtime-only stats
 var HP : float = base_stats["max_hp"]
 
-# Weapon stats (left as-is, but you can modularize similarly)
+# Weapon stats
 var WPN_SPEED = 300
 var WPN_DAMAGE = 10
 var WPN_ATTACK_SPEED = 1

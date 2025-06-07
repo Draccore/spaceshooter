@@ -6,7 +6,7 @@ const SAVE_FILE_SUFFIX := ".json"
 const SECURITY_KEY := "AJSFGIO900921AFSKIFaks01234912kASD0kfkasdl2123"
 const NUM_SLOTS := 3
 
-var current_slot := 1 # default to slot 1
+var current_slot := 1
 var current_display_name := "Save Slot 1"
 var player_data := PlayerData.new()
 
@@ -16,7 +16,7 @@ func _ready():
 func get_save_path(slot: int) -> String:
 	return SAVE_DIR + SAVE_FILE_PREFIX + str(slot) + SAVE_FILE_SUFFIX
 
-func save_data(display_name: String = ""):
+func save_data(display_name: String = "") -> void:
 	if display_name != "":
 		current_display_name = display_name
 
@@ -25,6 +25,8 @@ func save_data(display_name: String = ""):
 	player_data.health_upgrade = PlayerStats.upgrades.get("max_hp", 0)
 	player_data.friction_upgrade = PlayerStats.upgrades.get("friction", 0)
 	player_data.accel_upgrade = PlayerStats.upgrades.get("accel", 0)
+	player_data.selected_ship = PlayerStats.selected_ship
+	player_data.selected_engine = PlayerStats.selected_engine
 
 	var path = get_save_path(current_slot)
 	var file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, SECURITY_KEY)
@@ -39,14 +41,15 @@ func save_data(display_name: String = ""):
 			"health_upgrade": player_data.health_upgrade,
 			"friction_upgrade": player_data.friction_upgrade,
 			"accel_upgrade": player_data.accel_upgrade,
-		}
+		},
+		"selected_ship": player_data.selected_ship,
+		"selected_engine": player_data.selected_engine,
 	}
-	var json_string = JSON.stringify(data, "\t")
-	file.store_string(json_string)
+	file.store_string(JSON.stringify(data, "\t"))
 	file.close()
 	print("SaveManager: Game saved to slot %d with name '%s'." % [current_slot, current_display_name])
 
-func load_data(slot: int = -1):
+func load_data(slot: int = -1) -> void:
 	if slot > 0:
 		current_slot = slot
 	var path = get_save_path(current_slot)
@@ -69,22 +72,25 @@ func load_data(slot: int = -1):
 		player_data.health_upgrade = pd.health_upgrade
 		player_data.friction_upgrade = pd.friction_upgrade
 		player_data.accel_upgrade = pd.accel_upgrade
+		player_data.selected_ship = data.get("selected_ship", "default_ship")
+		player_data.selected_engine = data.get("selected_engine", "default_engine")
 
 		PlayerStats.upgrades["speed"] = player_data.speed_upgrade
 		PlayerStats.upgrades["max_hp"] = player_data.health_upgrade
 		PlayerStats.upgrades["friction"] = player_data.friction_upgrade
 		PlayerStats.upgrades["accel"] = player_data.accel_upgrade
+		PlayerStats.selected_ship = player_data.selected_ship
+		PlayerStats.selected_engine = player_data.selected_engine
 
 		print("SaveManager: Game loaded from slot %d ('%s')." % [current_slot, current_display_name])
 	else:
 		printerr("SaveManager: No save file found at %s" % path)
 		current_display_name = "Save Slot %d" % current_slot
 
-func delete_save(slot: int = -1):
+func delete_save(slot: int = -1) -> void:
 	if slot > 0:
 		current_slot = slot
 
-	# Remove the actual save file
 	var path = get_save_path(current_slot)
 	if FileAccess.file_exists(path):
 		DirAccess.remove_absolute(path)
@@ -92,21 +98,11 @@ func delete_save(slot: int = -1):
 	else:
 		print("SaveManager: No save file found to delete for slot %d." % current_slot)
 
-	# Optionally: Reset in-memory data
-	player_data.speed_upgrade = 0
-	player_data.health_upgrade = 0
-	player_data.friction_upgrade = 0
-	player_data.accel_upgrade = 0
-
-	PlayerStats.upgrades["speed"] = 0
-	PlayerStats.upgrades["max_hp"] = 0
-	PlayerStats.upgrades["friction"] = 0
-	PlayerStats.upgrades["accel"] = 0
-
+	reset_player_data()
 	current_display_name = "Save Slot %d" % current_slot
 
 func get_all_slot_display_names() -> Array:
-	var names = []
+	var names := []
 	for i in range(1, NUM_SLOTS + 1):
 		var path = get_save_path(i)
 		if FileAccess.file_exists(path):
@@ -123,33 +119,33 @@ func get_all_slot_display_names() -> Array:
 			names.append("EMPTY")
 	return names
 
-# Optionally, set slot and display name externally
-func set_current_slot(slot: int):
+func set_current_slot(slot: int) -> void:
 	current_slot = clamp(slot, 1, NUM_SLOTS)
 	load_data(current_slot)
 
-func set_current_display_name(name: String):
+func set_current_display_name(name: String) -> void:
 	current_display_name = name
 
-
-func reset_player_data():
+func reset_player_data() -> void:
 	player_data.speed_upgrade = 0
 	player_data.health_upgrade = 0
 	player_data.friction_upgrade = 0
 	player_data.accel_upgrade = 0
+	player_data.selected_ship = "default_ship"
+	player_data.selected_engine = "default_engine"
 
 	PlayerStats.upgrades["speed"] = 0
 	PlayerStats.upgrades["max_hp"] = 0
 	PlayerStats.upgrades["friction"] = 0
 	PlayerStats.upgrades["accel"] = 0
+	PlayerStats.selected_ship = "default_ship"
+	PlayerStats.selected_engine = "default_engine"
 
 func save_exists(slot: int) -> bool:
-	var path = get_save_path(slot)
-	return FileAccess.file_exists(path)
+	return FileAccess.file_exists(get_save_path(slot))
 
 func all_saves_empty() -> bool:
-	var names = get_all_slot_display_names()
-	for name in names:
+	for name in get_all_slot_display_names():
 		if name != "EMPTY":
 			return false
 	return true

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://rk6wgaxlm48i"]
 
 [ext_resource type="Theme" uid="uid://3b6jfloh1m1l" path="res://Resources/black_and_white_theme/black_and_white.tres" id="1_cww3b"]
-[ext_resource type="Script" uid="uid://crwdr1rowhyb8" path="res://Scripts/Player/costumization.gd" id="1_ehjfw"]
+[ext_resource type="Script" uid="uid://crwdr1rowhyb8" path="res://Scripts/Menus/costumization.gd" id="1_ehjfw"]
 
 [node name="Costumization" type="Control"]
 layout_mode = 3

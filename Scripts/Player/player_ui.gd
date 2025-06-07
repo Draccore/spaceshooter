@@ -1,8 +1,11 @@
 extends Control
 
-@onready var hp_label = $VBoxContainer/HP
-@onready var speed_label = $VBoxContainer/Speed
+@onready var hp_label: Label = $VBoxContainer/HP
+@onready var speed_label: Label = $VBoxContainer/Speed
 
 func _physics_process(_delta: float) -> void:
-	hp_label.text = "HP = " + str(PlayerStats.HP)
-	speed_label.text = "Speed = " + str(PlayerStats.get_stat("speed"))
+	_update_stats()
+
+func _update_stats():
+	hp_label.text = "HP = %s" % PlayerStats.HP
+	speed_label.text = "Speed = %s" % PlayerStats.get_stat("speed")

@@ -164,12 +164,12 @@ func get_scaled_enemy(wave: int) -> PackedScene:
 		return enemy_scenes[0]
 	elif wave < 8:
 		# Mid waves: 70% chance of first enemy type, 30% second enemy type
-		return enemy_scenes[0] if roll < 0.7 else enemy_scenes[1]
+		return enemy_scenes[0] if roll < 0.7 else enemy_scenes[0]
 	else:
 		# Later waves: mixed chance among three enemy types
 		if roll < 0.5:
 			return enemy_scenes[0]
 		elif roll < 0.8:
-			return enemy_scenes[1]
+			return enemy_scenes[0]
 		else:
-			return enemy_scenes[2]
+			return enemy_scenes[0]

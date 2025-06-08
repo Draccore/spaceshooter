@@ -1,57 +1,119 @@
-extends CharacterBody2D
+extends Node
 
-@export var speed: float = 150.0                 # Max movement speed of the enemy
-@export var attack_range: float = 200.0          # Distance at which enemy starts attacking
-@export var acceleration: float = 500.0          # How fast enemy accelerates toward target velocity
-@export var friction: float = 800.0              # How fast enemy slows down when stopping
-@export var player_path: NodePath = "/root/Main/Player"  # Path to the player node
+var player: Node2D = null
+var enemies: Array = []
 
-var is_attacking = false                          # Tracks if enemy is in attack mode
+var active_enemies: Array = []
+var semi_active_enemies: Array = []
+var idle_enemies: Array = []
 
-func _physics_process(delta):
-	var player = get_node_or_null(player_path)
-	if not player:
-		return  # No player found, skip processing
-	
-	var to_player = player.global_position - global_position
-	var distance = to_player.length()
-	var direction = to_player.normalized()
-	
-	const STOP_THRESHOLD := 10.0  # Buffer zone to smoothly stop near player
-	
-	if distance > attack_range + STOP_THRESHOLD:
-		# Enemy far from player: accelerate toward full speed
-		is_attacking = false
-		var desired_velocity = direction * speed
-		velocity = velocity.move_toward(desired_velocity, acceleration * delta)
-		
-	elif distance > attack_range:
-		# Enemy within stopping buffer zone: decelerate smoothly to avoid bouncing
-		is_attacking = false
-		var speed_factor = (distance - attack_range) / STOP_THRESHOLD
-		var desired_velocity = direction * speed * speed_factor
-		velocity = velocity.move_toward(desired_velocity, acceleration * delta)
-		
-	else:
-		# Enemy within attack range: slow down to stop and attack
-		is_attacking = true
-		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
-		# TODO: Insert attack logic here
-	
-	move_and_slide()  # Move enemy according to current velocity
-	
-	# Smoothly rotate enemy to face player with limited rotation speed
-	var target_angle = direction.angle()
-	const MAX_ROT_SPEED := 5.0  # radians per second
-	
-	rotation += clamp(
-		angle_difference(rotation, target_angle),
-		-MAX_ROT_SPEED * delta,
-		MAX_ROT_SPEED * delta
-	)
+const ACTIVE_RANGE_SQ := 1600.0 * 1600.0
+const SEMI_ACTIVE_RANGE_SQ := 1200.0 * 1200.0
+const CLUSTER_DISTANCE := 100.0  # max distance between enemies to be clustered
+
+var enemy_clusters := []  # Array of Arrays of enemies
+
+var frame_counter := 0
+
+func _ready():
+	pass
+
+func _cluster_enemies() -> void:
+	enemy_clusters.clear()
+
+	for enemy in active_enemies:
+		if not is_instance_valid(enemy):
+			continue
+		var placed = false
+		for cluster in enemy_clusters:
+			if cluster.size() == 0:
+				cluster.append(enemy)
+				placed = true
+				break
+			else:
+				# Check distance to any enemy in cluster (first is enough for simplicity)
+				if enemy.global_position.distance_to(cluster[0].global_position) <= CLUSTER_DISTANCE:
+					cluster.append(enemy)
+					placed = true
+					break
+		if not placed:
+			enemy_clusters.append([enemy])
+
+func set_player(player_node: Node2D) -> void:
+	player = player_node
+	print("EnemyManager: Player assigned successfully.")
+
+func register_enemy(enemy: Node2D):
+	if enemy and not enemies.has(enemy):
+		enemies.append(enemy)
+
+func unregister_enemy(enemy: Node2D):
+	enemies.erase(enemy)
+
+func _process(delta):
+	if player == null:
+		return
+
+	frame_counter += 1
+
+	if frame_counter % 60 == 0:
+		_update_enemy_groups()
+
+	_cluster_enemies()
+
+	for cluster in enemy_clusters:
+		if cluster.size() == 0:
+			continue
+
+		for enemy in cluster:
+			if not is_instance_valid(enemy):
+				continue
+
+			# Smaller random offset (reduce from ±20 to ±8)
+			var offset = Vector2(randf_range(-8, 8), randf_range(-8, 8))
+			var target_pos = player.global_position + offset
+
+			var raw_dir = target_pos - enemy.global_position
+			var dist_to_target = raw_dir.length()
+			var deadzone = 5.0  # Distance threshold for snapping
+
+			var direction = Vector2.ZERO
+			if dist_to_target > deadzone:
+				direction = raw_dir.normalized()
+			else:
+				direction = Vector2.ZERO
+				enemy.velocity = Vector2.ZERO  # Stop enemy if inside deadzone
+
+			enemy.cluster_update(target_pos, direction, delta)
+
+	if frame_counter % 2 == 0:
+		for i in range(0, semi_active_enemies.size(), 4):
+			var enemy = semi_active_enemies[i]
+			if is_instance_valid(enemy):
+				enemy.update_ai(player.global_position, delta)
 
 
-# Returns shortest angular difference between two angles (radians)
-func angle_difference(from_angle: float, to_angle: float) -> float:
-	var diff = fposmod(to_angle - from_angle + PI, 2 * PI) - PI
-	return diff
+	if frame_counter % 2 == 0:
+		for i in range(0, semi_active_enemies.size(), 4):
+			var enemy = semi_active_enemies[i]
+			if is_instance_valid(enemy):
+				enemy.update_ai(player.global_position, delta)
+
+func _update_enemy_groups():
+	active_enemies.clear()
+	semi_active_enemies.clear()
+	idle_enemies.clear()
+
+	for enemy in enemies:
+		if not is_instance_valid(enemy):
+			continue
+
+		var dist_sq = enemy.global_position.distance_squared_to(player.global_position)
+
+		if dist_sq <= ACTIVE_RANGE_SQ:
+			active_enemies.append(enemy)
+		elif dist_sq <= SEMI_ACTIVE_RANGE_SQ:
+			semi_active_enemies.append(enemy)
+		else:
+			idle_enemies.append(enemy)
+			enemy.velocity = Vector2.ZERO  # Optional: freeze physics

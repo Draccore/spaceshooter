@@ -20,6 +20,7 @@ PlayerStats="*res://Scripts/Player/player_stats.gd"
 SaveManager="*res://Scripts/Saving/SaveManager.gd"
 QuitHandler="*res://Scripts/Saving/PersistentQuitHandler.gd"
 GameState="*res://Scripts/Saving/GameState.gd"
+EnemyManager="*res://Scripts/Enemies/enemy_manager.gd"
 
 [display]
 

@@ -209,6 +209,7 @@ _data = {
 }
 
 [node name="Kla\'ed_Battlecruiser" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_3wlex")
 
 [node name="Ship" type="Sprite2D" parent="."]
